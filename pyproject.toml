@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "airflow-provider-cidp"
+version = "0.1.0"
+description = "Apache Airflow provider for CIDP, the Cloud Independent Data Platform (jobs, SQL statements, projects)"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = ["apache-airflow>=2.9.0", "httpx>=0.27", "tenacity>=8.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "respx>=0.21", "pytest-asyncio>=0.23"]
+
+[dependency-groups]
+# Locked dev environment (uv.lock); consumers get the loose ranges above.
+dev = [
+    "apache-airflow==3.3.2",
+    "pytest>=8",
+    "respx>=0.21",
+    "pytest-asyncio>=0.23",
+    "ruff",
+    "mypy",
+    "coverage",
+    "jsonschema",
+]
+docs = ["sphinx>=7"]
+
+[project.entry-points.apache_airflow_provider]
+provider_info = "airflow.providers.cidp.get_provider_info:get_provider_info"
+
+[tool.hatch.build.targets.wheel]
+packages = ["airflow"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "BLE", "SIM", "RUF", "ASYNC"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S106", "S105"]
+
+[tool.coverage.run]
+branch = true
+source = ["airflow/providers/cidp"]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true
+skip_empty = true
+# Airflow 2 import fallbacks cannot run under the pinned Airflow 3.
+exclude_also = ["except ImportError:  # Airflow 2"]
+
+[tool.mypy]
+python_version = "3.12"
+explicit_package_bases = true
+ignore_missing_imports = true
+warn_unused_ignores = false
+files = ["airflow/providers/cidp"]
