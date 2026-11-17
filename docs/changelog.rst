@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Unreleased
+----------
+
+* Live tests (``tests/live/``) against a running data service: SQL, sensors, projects, project
+  actions (``sql.run``, ``python.run``) and volumes. See :doc:`live-testing`.
+
 0.1.0
 -----
 

@@ -23,6 +23,9 @@ Reference docs in the Airflow provider style live in [`docs/`](docs/index.rst) (
   parameter differences and what is not supported, against the provider versions in the
   Airflow 3.0.6 (MWAA) constraints.
 
+- [Live testing](docs/live-testing.rst): `tests/live/` against a running data service
+  (`CIDP_LIVE_HOST`, `CIDP_LIVE_TOKEN`; skipped without them).
+
 Build the HTML with `uv run --group docs sphinx-build -W -b html docs docs/_build`.
 `tests/test_docs.py` fails when a parameter table no longer matches the code.
 

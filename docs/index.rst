@@ -20,6 +20,7 @@
    Hook <hooks>
    Compared with Databricks and Amazon <comparison>
    Security <security>
+   Live testing <live-testing>
 
 Package ``airflow-provider-cidp`` connects Apache Airflow to CIDP, the Cloud Independent Data
 Platform, through its data API (``/api/data/v1``). It is shaped after
